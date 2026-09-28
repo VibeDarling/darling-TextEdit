@@ -35,3 +35,11 @@ add_darling_executable(TextEdit
 target_link_libraries(TextEdit AppKit)
 set_property(TARGET TextEdit APPEND_STRING PROPERTY LINK_FLAGS "-Wl,-sectorder -Wl,__TEXT -Wl,__text -Wl,${CMAKE_CURRENT_SOURCE_DIR}/TextEdit.scatterload")
 set_property(TARGET TextEdit PROPERTY C_STANDARD 11)
+
+set(textedit_bundle libexec/darling/Applications/TextEdit.app/Contents)
+install(TARGETS TextEdit DESTINATION ${textedit_bundle}/MacOS)
+install(FILES Info-TextEdit.plist DESTINATION ${textedit_bundle} RENAME Info.plist)
+install(DIRECTORY Base.lproj English.lproj DocumentWindow.nib
+	DESTINATION ${textedit_bundle}/Resources)
+install(FILES TextEdit.scriptSuite TextEdit.scriptTerminology
+	DESTINATION ${textedit_bundle}/Resources)
